@@ -20,7 +20,7 @@ const emojiDict = {
   "🍅": "Tomato"
 };
 
-var emojiList = ["🍉", "🍋", "🍍", "🥝", "🍅", "🍇", "🍐", "🍎", "🍊", "🥭"];
+var emojiList = Object.keys(emojiDict);
 
 export default function App() {
   const [meaning, setMeaning] = useState("");
@@ -29,13 +29,13 @@ export default function App() {
     var userInput = event.target.value;
     var meaning = emojiDict[userInput];
 
-    if (meaning === undefined) {
-      meaning = "Sorry! This emoji does not include in our database";
+    if (userInput in emojiDict) {
+      setMeaning(emojiDict[userInput]);
+    } else if (userInput === "") {
+      setMeaning("");
+    } else {
+      setMeaning("Sorry! This emoji does not include in our database");
     }
-    if (meaning === "") {
-      return;
-    }
-    setMeaning(meaning);
   }
 
   function emojiClickHandler(emoji) {
